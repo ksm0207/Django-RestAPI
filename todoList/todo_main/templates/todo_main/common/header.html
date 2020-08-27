@@ -3,18 +3,39 @@
 <html lang="en">
 {% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
-    <title>Document</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 </head>
+<style type="text/css">
+    #container {
+        min-width: 310px;
+        max-width: 800px;
+        height: 400px;
+        margin: 0 auto
+    }
+</style>
 <body>
-
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">todo list</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+            </ul>
+        </div>
+    </nav>
     {% block main %}
       
     {% endblock main %}
     
 </body>
-<script src="{% static 'js/Sortable.js' %}"></script>
-<script src="{% static 'js/app.js' %}"></script>
+
 </html>
