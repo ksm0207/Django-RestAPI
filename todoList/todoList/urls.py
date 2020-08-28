@@ -8,5 +8,5 @@ urlpatterns = [
     path("index/", include("todo_main.urls", namespace="index")),
     path("home/", include("todo_main.urls", namespace="home")),
     # 게시판 앱
-    # path("board/", include("todo_board.urls")),
+    path("board/", include("todo_board.urls")),
 ]
