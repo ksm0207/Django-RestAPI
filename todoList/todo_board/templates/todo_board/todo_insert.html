@@ -1,7 +1,0 @@
-
-
-<form method="POST" action="{% url 'todo_board:todo_board_insert' %}" class="post-form">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" class="save btn btn-default">저장</button>
-</form>

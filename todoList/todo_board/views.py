@@ -21,8 +21,8 @@ def check_post(request):
             todo.todo_save()
             message = "일정을 추가하였습니다"
             return render(request, template_name, {"message": message})
-        else:
-            template_name = "todo_board/todo_board_insert.html"
-            form = TodoForm
-            return render(request, template_name, {"form": form})
+    else:
+        template_name = "todo_board/todo_board_insert.html"
+        form = TodoForm
+        return render(request, template_name, {"form": form})
 
