@@ -7,5 +7,6 @@ app_name = "todo_board"
 
 urlpatterns = [
     path("", views.TodoListBoard.as_view(), name="board"),
+    path("insert/", views.check_post, name="todo_board_insert"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
