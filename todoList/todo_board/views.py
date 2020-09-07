@@ -12,7 +12,14 @@ class TodoListBoard(generic.TemplateView):
         return render(request, template_name, {"todo_list": todo_list})
 
 
-def check_post(request):
+class TodoDetail(generic.DetailView):
+    model = TodoList
+    template_name = "todo_board/todo_board_detail.html"
+    context_object_name = "todo_list"
+
+
+def check_post(request, pk):
+    pk = TodoList.objects.get(pk=pk)
     template_name = "todo_board/todo_board_success.html"
     if request.method == "POST":
         form = TodoForm(request.POST)
@@ -20,7 +27,7 @@ def check_post(request):
             todo = form.save(commit=False)
             todo.todo_save()
             message = "일정을 추가하였습니다"
-            return render(request, template_name, {"message": message})
+            return render(request, template_name, {"message": message, "check": pk})
     else:
         template_name = "todo_board/todo_board_insert.html"
         form = TodoForm
