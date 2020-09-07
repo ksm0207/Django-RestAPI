@@ -7,4 +7,5 @@ class TodoListBoard(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         template_name = "todo_board/todo_list.html"
         todo_list = TodoList.objects.all()
+        print(todo_list)
         return render(request, template_name, {"todo_list": todo_list})
