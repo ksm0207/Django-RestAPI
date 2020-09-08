@@ -97,6 +97,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -114,6 +115,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = "ko-kr"
+
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 TIME_ZONE = "Asia/Seoul"
 

@@ -8,7 +8,6 @@ class TodoListBoardView(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         template_name = "todo_board/todo_list.html"
         todo_list = TodoList.objects.all()
-        print(todo_list)
         return render(request, template_name, {"todo_list": todo_list})
 
 
@@ -38,7 +37,6 @@ class TodoUpdateView(generic.UpdateView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         context = self.get_context_data(object=self.object, form=form)
-        print(context)
         return self.render_to_response(context)
 
 
