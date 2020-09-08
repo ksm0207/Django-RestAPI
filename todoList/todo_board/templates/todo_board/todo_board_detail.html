@@ -10,6 +10,8 @@
         <p>{{todo_list.end_date}}</p><br>
 
         <h4><a href="{% url 'todo_board:todo_board_update' todo_list.pk  %}">수정</a></h2>
+        <h4><a href="{% url 'todo_board:todo_board_delete' todo_list.pk  %}">삭제</a></h2>
+            
     </div>
 </section>
   

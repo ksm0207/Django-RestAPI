@@ -42,6 +42,13 @@ class TodoUpdate(generic.UpdateView):
         return self.render_to_response(context)
 
 
+class TodoDelete(generic.DeleteView):
+    model = TodoList
+    template_name = "todo_board/todo_board_delete.html"
+    success_url = "/board/"
+    context_object_name = "todo_list"
+
+
 def check_post(request):
     template_name = "todo_board/todo_board_success.html"
     if request.method == "POST":

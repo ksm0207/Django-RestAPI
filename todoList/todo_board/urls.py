@@ -10,6 +10,7 @@ urlpatterns = [
     path("insert/", views.check_post, name="todo_board_insert"),
     path("detail/<int:pk>", views.TodoDetail.as_view(), name="todo_board_detail"),
     path("update/<int:pk>", views.TodoUpdate.as_view(), name="todo_board_update"),
+    path("delete/<int:pk>", views.TodoDelete.as_view(), name="todo_board_delete"),
 
 
 ]
