@@ -18,6 +18,30 @@ class TodoDetail(generic.DetailView):
     context_object_name = "todo_list"
 
 
+class TodoUpdate(generic.UpdateView):
+    model = TodoList
+    fields = ("title", "content", "end_date")
+    template_name = "todo_board/todo_board_update.html"
+    success_url = "/board/"
+
+    def form_valid(self, form):
+        form.save()
+        return render(
+            self.request,
+            "todo_board/todo_board_success.html",
+            {"message": "일정 업데이트 완료"},
+        )
+
+    def get(self, request, *args, **kwargs):
+        # 오브젝트를 받아와서 폼 클래스를 받아온후 값을 리턴해야함
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        context = self.get_context_data(object=self.object, form=form)
+        print(context)
+        return self.render_to_response(context)
+
+
 def check_post(request):
     template_name = "todo_board/todo_board_success.html"
     if request.method == "POST":
@@ -26,7 +50,7 @@ def check_post(request):
             todo = form.save(commit=False)
             todo.todo_save()
             message = "일정을 추가하였습니다"
-            return render(request, template_name, {"message": message, })
+            return render(request, template_name, {"message": message,})
     else:
         template_name = "todo_board/todo_board_insert.html"
         form = TodoForm
