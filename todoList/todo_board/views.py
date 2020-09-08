@@ -4,7 +4,7 @@ from .forms import TodoForm
 from django.views import generic
 
 
-class TodoListBoard(generic.TemplateView):
+class TodoListBoardView(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         template_name = "todo_board/todo_list.html"
         todo_list = TodoList.objects.all()
@@ -12,13 +12,13 @@ class TodoListBoard(generic.TemplateView):
         return render(request, template_name, {"todo_list": todo_list})
 
 
-class TodoDetail(generic.DetailView):
+class TodoDetailView(generic.DetailView):
     model = TodoList
     template_name = "todo_board/todo_board_detail.html"
     context_object_name = "todo_list"
 
 
-class TodoUpdate(generic.UpdateView):
+class TodoUpdateView(generic.UpdateView):
     model = TodoList
     fields = ("title", "content", "end_date")
     template_name = "todo_board/todo_board_update.html"
@@ -42,7 +42,7 @@ class TodoUpdate(generic.UpdateView):
         return self.render_to_response(context)
 
 
-class TodoDelete(generic.DeleteView):
+class TodoDeleteView(generic.DeleteView):
     model = TodoList
     template_name = "todo_board/todo_board_delete.html"
     success_url = "/board/"

@@ -6,11 +6,11 @@ from django.conf.urls.static import static
 app_name = "todo_board"
 
 urlpatterns = [
-    path("", views.TodoListBoard.as_view(), name="todo_board"),
+    path("", views.TodoListBoardView.as_view(), name="todo_board"),
     path("insert/", views.check_post, name="todo_board_insert"),
-    path("detail/<int:pk>", views.TodoDetail.as_view(), name="todo_board_detail"),
-    path("update/<int:pk>", views.TodoUpdate.as_view(), name="todo_board_update"),
-    path("delete/<int:pk>", views.TodoDelete.as_view(), name="todo_board_delete"),
+    path("detail/<int:pk>", views.TodoDetailView.as_view(), name="todo_board_detail"),
+    path("update/<int:pk>", views.TodoUpdateView.as_view(), name="todo_board_update"),
+    path("delete/<int:pk>", views.TodoDeleteView.as_view(), name="todo_board_delete"),
 
 
 ]

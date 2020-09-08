@@ -44,3 +44,5 @@ class TodoList(models.Model):
         managed = False
         db_table = "todo_list"
 
+    def __str__(self):
+        return self.title
