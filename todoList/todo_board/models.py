@@ -33,6 +33,7 @@ class TodoList(models.Model):
     is_complete = models.IntegerField(
         db_column="IS_COMPLETE", blank=True, null=True
     )  # Field name made lowercase.
+    priority = models.IntegerField(blank=True, null=True)
     end_date = models.DateField(
         db_column="END_DATE", blank=True, null=True
     )  # Field name made lowercase.
