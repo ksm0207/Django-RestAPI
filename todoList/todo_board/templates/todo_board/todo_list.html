@@ -9,6 +9,23 @@
   <strong>마감이 가까운 일정!</strong> {{ close_end_day }}
 </div>
 
+<div class="col-md-4">
+  <div class="container">
+  <h2>기한 있는 일정</h2><br>
+  <div id="todo_list_endDate" class="list-group col">
+        {% for list in todo_list_date_non_complete  %}
+        <div class="list-group-item"
+         div_pk={{list.no}} priority={{list.priority}}>
+         <input type="checkbox" pk={{list.pk}} name="todo_list_date_non_complete"
+          value={{list.title}}>
+          <a href="{% url 'todo_board:todo_board_detail' list.pk %}">{{list.title}}</a>
+          <p>{{list.end_date}}</p>
+        </div>
+        {% endfor %}
+  </div>    
+  </div>
+
+</div>
 
 
 
