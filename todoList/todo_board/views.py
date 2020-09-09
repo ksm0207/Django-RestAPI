@@ -10,13 +10,13 @@ class TodoListBoardView(generic.TemplateView):
         template_name = "todo_board/todo_list.html"
         # 기한 없는 일정 및 마감 안된 일정 불러오기
         todo_list_date_no = TodoList.objects.all().filter(end_date__isnull=True, is_complete=0).order_by('priority')
-        print(todo_list_date_no)
+        # print(todo_list_date_no)
         # 기한 있는 일정 및 마감이 안된 일정 불러오기
         todo_list_date_non_complete = TodoList.objects.all().filter(end_date__isnull=False, is_complete=0).order_by('priority')
         print(todo_list_date_non_complete)
         # 마감이 완료된 데이터 불러오기 is_complete 값이 1인 테이블을 찾고 완료된 값은 1
         todo_list_date_complete = TodoList.objects.all().filter(is_complete=1).order_by('end_date')
-        print(todo_list_date_complete)
+        # print(todo_list_date_complete)
         today = datetime.now()
         # 마감일이 가까워지는 데이터를 담는 변수 설정
         close_end_day = []
@@ -25,14 +25,14 @@ class TodoListBoardView(generic.TemplateView):
 
         for i in todo_list_date_non_complete:
             day = str(i.end_date).split("-")
-            print(day)
+            # print(day)
             end_day = datetime(int(day[0]), int(day[1]), int(day[2]))
-            print(end_day)
-            if (end_day - today).days < - 1:
+            # print(end_day)
+            if (end_day - today).days < -1:
                 over_end_day.append(i.title)
             if (end_day - today).days >= -1 and (end_day - today).days < 3:
                 close_end_day.append(i.title)
-        return render(request, template_name, {"todo_list_date_non_complete": todo_list_date_non_complete, "todo_list_date_complete": todo_list_date_complete, "todo_list_date_no": todo_list_date_no, 'close_end_day': close_end_day, 'over_end_day':over_end_day})
+        return render(request, template_name, {"todo_list_date_non_complete": todo_list_date_non_complete, "todo_list_date_complete": todo_list_date_complete, "todo_list_date_no": todo_list_date_no, 'close_end_day': close_end_day, 'over_end_day': over_end_day})
         # todo_list = TodoList.objects.all()
         # return render(request, template_name, {"todo_list": todo_list})
 
