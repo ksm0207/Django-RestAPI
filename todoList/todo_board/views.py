@@ -7,32 +7,49 @@ from django.views import generic
 
 class TodoListBoardView(generic.TemplateView):
     def get(self, request, *args, **kwargs):
+        # Reserved.objects.filter(client=client_id).order_by('-check_in')
         template_name = "todo_board/todo_list.html"
-        # 기한 없는 일정 및 마감 안된 일정 불러오기
-        todo_list_date_no = TodoList.objects.all().filter(end_date__isnull=True, is_complete=0).order_by('priority')
-        # print(todo_list_date_no)
-        # 기한 있는 일정 및 마감이 안된 일정 불러오기
-        todo_list_date_non_complete = TodoList.objects.all().filter(end_date__isnull=False, is_complete=0).order_by('priority')
-        print(todo_list_date_non_complete)
-        # 마감이 완료된 데이터 불러오기 is_complete 값이 1인 테이블을 찾고 완료된 값은 1
-        todo_list_date_complete = TodoList.objects.all().filter(is_complete=1).order_by('end_date')
-        # print(todo_list_date_complete)
+        # 기한 없는 일정, 마감 안된 애들
+        todo_list_no_endDate = (
+            TodoList.objects.all()
+            .filter(end_date__isnull=True, is_complete=0)
+            .order_by("priority")
+        )
+        # 기한 있고, 마감이 안된 애들
+        todo_list_endDate_non_complete = (
+            TodoList.objects.all()
+            .filter(end_date__isnull=False, is_complete=0)
+            .order_by("priority")
+        )
+        print(todo_list_endDate_non_complete)
+        # 마김이 된 애들
+        todo_list_endDate_complete = (
+            TodoList.objects.all().filter(is_complete=1).order_by("end_date")
+        )
+        print(todo_list_endDate_complete)
         today = datetime.now()
-        # 마감일이 가까워지는 데이터를 담는 변수 설정
+        # deadline is close
         close_end_day = []
-        # 기한이 지난 데이터를 담는 변수 설정
+        # over time
         over_end_day = []
-
-        for i in todo_list_date_non_complete:
-            day = str(i.end_date).split("-")
-            # print(day)
-            end_day = datetime(int(day[0]), int(day[1]), int(day[2]))
-            # print(end_day)
+        for i in todo_list_endDate_non_complete:
+            e_day = str(i.end_date).split("-")
+            end_day = datetime(int(e_day[0]), int(e_day[1]), int(e_day[2]))
             if (end_day - today).days < -1:
                 over_end_day.append(i.title)
             if (end_day - today).days >= -1 and (end_day - today).days < 3:
                 close_end_day.append(i.title)
-        return render(request, template_name, {"todo_list_date_non_complete": todo_list_date_non_complete, "todo_list_date_complete": todo_list_date_complete, "todo_list_date_no": todo_list_date_no, 'close_end_day': close_end_day, 'over_end_day': over_end_day})
+        return render(
+            request,
+            template_name,
+            {
+                "todo_list_endDate_non_complete": todo_list_endDate_non_complete,
+                "todo_list_endDate_complete": todo_list_endDate_complete,
+                "todo_list_no_endDate": todo_list_no_endDate,
+                "close_end_day": close_end_day,
+                "over_end_day": over_end_day,
+            },
+        )
         # todo_list = TodoList.objects.all()
         # return render(request, template_name, {"todo_list": todo_list})
 
@@ -81,7 +98,7 @@ def check_post(request):
             todo = form.save(commit=False)
             todo.todo_save()
             message = "일정을 추가하였습니다"
-            return render(request, template_name, {"message": message,})
+            return render(request, template_name, {"message": message})
     else:
         template_name = "todo_board/todo_board_insert.html"
         form = TodoForm
