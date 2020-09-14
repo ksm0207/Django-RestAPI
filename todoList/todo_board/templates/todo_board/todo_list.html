@@ -3,7 +3,7 @@
 {% block main %}
 
 <div class="alert alert-info">
-    <strong>마감이 지난 일정!</strong> {{ over_end_day }}
+    <strong>마감이 지난 일정! {{ over_end_day }} </strong> 
 </div>
 <div class="alert alert-info">
     <strong>마감이 가까운 일정!</strong> {{ close_end_day }}
@@ -15,7 +15,7 @@
             {% for list in todo_list_endDate_non_complete %}
             <div class="list-group-item" div_pk={{list.pk}} priority={{list.priority}}>
               <input type="checkbox" pk={{list.pk}} name="end_non_complete" value={{list.title}}>
-               <a href="{% url 'todo_board:todo_board_detail' list.no %}">{{list.title}}</a>
+               <a href="{% url 'todo_board:todo_board_detail' list.pk %}">{{list.title}}</a>
                <p>{{list.end_date}}</p>
               </div>
             {% endfor %}
@@ -47,8 +47,8 @@
                 {% for list in todo_list_endDate_complete %}
                     {% if list.end_date == None %}
                         <div class="list-group-item list-group-item-success" div_pk={{list.priority}}>
-                          <input type="checkbox" pk={{list.no}} name="complete" value={{list.title}}>
-                           <a href="{% url 'todo_board:todo_board_detail' list.no %}">{{list.title}}</a>
+                          <input type="checkbox" pk={{list.pk}} name="complete" value={{list.title}}>
+                           <a href="{% url 'todo_board:todo_board_detail' list.pk %}">{{list.title}}</a>
                            <p>{{end_date}}</p>
                           </div>
                     {% else %}
@@ -68,7 +68,7 @@
       <button type="button" class="btn btn-primary" onclick="location.href='{% url 'todo_board:todo_board_insert' %} '">
             일정추가
       </button>
-      <button type="button" class="btn btn-primary" onclick="prioirty_save()">
+      <button type="button" class="btn btn-primary" onclick="prioirty2_save()">
             *우선순위 저장
       </button>
       <p>* 마우스 드래그로 우선순위 변경이 가능합니다</p>

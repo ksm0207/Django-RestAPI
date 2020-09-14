@@ -28,17 +28,21 @@ class TodoListBoardView(generic.TemplateView):
         )
         print(todo_list_endDate_complete)
         today = datetime.now()
-        # deadline is close
+        # 마감일이 가까워지는날인 변수
         close_end_day = []
-        # over time
+
+        # 마감날이 지난 변수 
         over_end_day = []
+        
         for i in todo_list_endDate_non_complete:
             e_day = str(i.end_date).split("-")
             end_day = datetime(int(e_day[0]), int(e_day[1]), int(e_day[2]))
             if (end_day - today).days < -1:
                 over_end_day.append(i.title)
+                print(over_end_day)
             if (end_day - today).days >= -1 and (end_day - today).days < 3:
                 close_end_day.append(i.title)
+                print(close_end_day)
         return render(
             request,
             template_name,
