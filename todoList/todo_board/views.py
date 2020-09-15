@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .models import TodoList
 from .forms import TodoForm
 from django.views import generic
 from django.http import JsonResponse
-from datetime import datetime, timedelta
+from datetime import datetime
 import json
 
 
