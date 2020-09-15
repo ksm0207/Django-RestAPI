@@ -4,6 +4,6 @@ from .serializers import TodoSerializer
 from rest_framework import viewsets
 
 
-class Todo_subject_restful_main(viewsets.ModelViewSet):
+class TodoMainView(viewsets.ModelViewSet):
     queryset = TodoList.objects.all()
     serializer_class = TodoSerializer

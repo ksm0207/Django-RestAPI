@@ -8,7 +8,7 @@ from django.urls import path
 app_name = "todo_subject_restful_main"
 
 router = routers.DefaultRouter()
-router.register(r"todo_board", views.Todo_subject_restful_main)
+router.register(r"todo_board", views.TodoMainView)
 urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("", include(router.urls)),
