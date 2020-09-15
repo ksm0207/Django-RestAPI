@@ -15,34 +15,38 @@ class TodoListBoardView(generic.TemplateView):
             .filter(end_date__isnull=True, is_complete=0)
             .order_by("priority")
         )
+        print("기한 없는 일정 및 마감이 안된 데이터 :", todo_list_no_endDate)
+
         # 기한 있고, 마감이 안된 애들
         todo_list_endDate_non_complete = (
             TodoList.objects.all()
             .filter(end_date__isnull=False, is_complete=0)
             .order_by("priority")
         )
-        print(todo_list_endDate_non_complete)
-        # 마김이 된 애들
+        print("기한 있고 마감이 안된 데이터 : ", todo_list_endDate_non_complete)
+
+        # 마감이 된 애들
         todo_list_endDate_complete = (
             TodoList.objects.all().filter(is_complete=1).order_by("end_date")
         )
-        print(todo_list_endDate_complete)
+        print("마감이 완료된 데이터:", todo_list_endDate_complete)
         today = datetime.now()
+        
         # 마감일이 가까워지는날인 변수
         close_end_day = []
 
-        # 마감날이 지난 변수 
+        # 마감날이 지난 변수
         over_end_day = []
-        
+
         for i in todo_list_endDate_non_complete:
             e_day = str(i.end_date).split("-")
             end_day = datetime(int(e_day[0]), int(e_day[1]), int(e_day[2]))
             if (end_day - today).days < -1:
                 over_end_day.append(i.title)
-                print(over_end_day)
+                print("over end day :", over_end_day)
             if (end_day - today).days >= -1 and (end_day - today).days < 3:
                 close_end_day.append(i.title)
-                print(close_end_day)
+                print("마감일이 가까워지는 데이터 : ", close_end_day)
         return render(
             request,
             template_name,
