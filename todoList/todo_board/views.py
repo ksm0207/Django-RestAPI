@@ -106,10 +106,23 @@ def check_post(request):
         if str(request.path).split("/board/")[1].split("/")[0] == "insert":
             form = TodoForm(request.POST)
             if form.is_valid():
-                todo = form.save(commit=False)
-                todo.todo_save()
                 message = "일정을 추가하였습니다"
+                if len(request.POST.get("title")) < 2:
+                    message = "제목은 2글자 이상으로 입력해야합니다 !"
+                else:
+                    todo = form.save(commit=False)
+                    todo.todo_save()
                 return render(request, template_name, {"message": message})
+
+        elif str(request.path).split("/board/")[1].split("/")[0] == "save_prioirity":
+            todo_list = json.loads(request.POST["todo_dict"])
+            for key, value in todo_list.items():
+                if key == "None":
+                    continue
+                todo_selected = TodoList.objects.get(pk=key)
+                todo_selected.priority = value
+                todo_selected.save()
+            return JsonResponse({"text": "저장되었습니다."})
         elif str(request.path).split("/board/")[1].split("/")[0] == "is_complete":
             pk = request.POST["data"]
             return_value = checkbox_event(pk, True)

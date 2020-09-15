@@ -114,6 +114,28 @@
                 });
             }
         });
-
+</script>
+<script>
+    function prioirty2_save(){
+        todo_list = $(".list-group-item");
+        todo_dict ={}
+        for(var i=0 ; i< todo_list.length; i++){
+            todo_dict[todo_list[i].getAttribute("div_pk")] = i +1
+        }
+        console.log(todo_dict)
+        $.ajax({
+            type: "POST",
+            url: "{% url 'todo_board:todo_board_save_priority' %}",
+            data: {"todo_dict":JSON.stringify(todo_dict), 'csrfmiddlewaretoken':'{{csrf_token}}'},
+            dataType : "Json",
+            success: function(response){
+                console.log("우선순위 : Ajax 통신 성공");
+                window.location.href = "{% url 'todo_board:todo_board' %}"
+            },
+            error : function(request , status , error){
+                console.log("우선순위 : Ajax 통신 실패")
+            },
+        });
+    }
 </script>
 {% endblock main %}
