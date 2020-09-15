@@ -33,9 +33,50 @@
         </div>
     </nav>
     {% block main %}
-      
     {% endblock main %}
-    
 </body>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+    completed = document.getElementsByName('complete');
+    for(var i = 0; i < completed.length ; i++){
+        completed[i].checked = true;
+    }
 
+    $("input[name*=complete]").change(function(){
+        if($(this).is(":checked")){
+            pk = $(this).attr("pk");
+            $.ajax({
+              type: "POST",
+              url: "{% url 'todo_board:todo_board_is_complete' %}",
+              data: {'data': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+              dataType: "json",
+              success: function(response){
+                console.log("성공");
+                window.location.href = "{% url 'todo_board:todo_board' %}"
+              },
+              error: function(request, status, error){
+                console.log("실패.");
+              },
+            });
+        }
+        //체크박스 해제
+        else{
+            pk = $(this).attr("pk");
+            $.ajax({
+              type: "POST",
+              url: "{% url 'todo_board:todo_board_is_non_complete' %}",
+              data: {'data': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+              dataType: "json",
+              success: function(response){
+                window.location.href = "{% url 'todo_board:todo_board' %}"
+              },
+              error: function(request, status, error){
+                console.log("실패.");
+              },
+            });
+        }
+    });
+
+</script>
+  
 </html>

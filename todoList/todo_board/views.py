@@ -31,7 +31,7 @@ class TodoListBoardView(generic.TemplateView):
         )
         print("마감이 완료된 데이터:", todo_list_endDate_complete)
         today = datetime.now()
-        
+
         # 마감일이 가까워지는날인 변수
         close_end_day = []
 
@@ -43,7 +43,7 @@ class TodoListBoardView(generic.TemplateView):
             end_day = datetime(int(e_day[0]), int(e_day[1]), int(e_day[2]))
             if (end_day - today).days < -1:
                 over_end_day.append(i.title)
-                print("over end day :", over_end_day)
+                print("마감날이 지난 데이터 over end day :", over_end_day)
             if (end_day - today).days >= -1 and (end_day - today).days < 3:
                 close_end_day.append(i.title)
                 print("마감일이 가까워지는 데이터 : ", close_end_day)
@@ -107,6 +107,7 @@ def check_post(request):
             todo.todo_save()
             message = "일정을 추가하였습니다"
             return render(request, template_name, {"message": message})
+
     else:
         template_name = "todo_board/todo_board_insert.html"
         form = TodoForm
