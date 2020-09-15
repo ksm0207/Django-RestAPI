@@ -126,7 +126,7 @@ def check_post(request):
 
 def checkbox_event(pk, is_check):
     todo_selected = TodoList.objects.get(pk=pk)
-    if is_check == True:
+    if is_check and True:
         todo_selected.is_complete = 1
         todo_selected.priority = None
     else:
