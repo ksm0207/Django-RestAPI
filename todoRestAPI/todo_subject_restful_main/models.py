@@ -10,3 +10,7 @@ class TodoList(models.Model):
     is_complete = models.IntegerField(db_column='IS_COMPLETE', blank=True, null=True)  # Field name made lowercase.
     priority = models.IntegerField(db_column='PRIORITY', blank=True, null=True)  # Field name made lowercase.
     end_date = models.DateField(db_column='END_DATE', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'todo_list'
