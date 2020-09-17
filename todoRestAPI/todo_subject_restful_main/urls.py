@@ -12,7 +12,9 @@ app_name = "todo_subject_restful_main"
 urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("", views.TodoMainView.as_view(), name="todo_list"),
-    url(r'^todo_list/(?P<no>\d+)/$', views.TodoRestDetailView.as_view(), name='todo_detail'),
+    # url(r'^todo_list/(?P<no>\d+)/$', views.TodoRestDetailView.as_view(), name='todo_detail'),
+    path("todo_list/<int:no>/", views.TodoRestDetailView.as_view(), name='todo_detail'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
